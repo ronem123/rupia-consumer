@@ -1,4 +1,4 @@
-package com.kafka.consumer.rupia_consumer;
+package com.kafka.rupia_consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

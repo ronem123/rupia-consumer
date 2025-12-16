@@ -1,3 +1,26 @@
 spring:
   application:
     name: rupia-consumer
+server:
+  port: 8082
+
+kafka:
+  bootstrap-servers: localhost:9092
+  consumer:
+    group-id: rupia-transaction-group
+    auto-offset-reset: earliest
+    enable-auto-commit: false
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+    properties:
+      #This is the package full name, Where the real event class lies
+      #Example :
+      # WalletReloadEvent lives inside com.rupia.kafka
+      # TransferMoneyEvent lives inside com.rupia.kafka
+      spring.json.trusted.packages: "com.rupia.kafa"
+      spring.json.value.default.type: com.rupia.kafka.event.TransactionEvent
+      spring.json.use.type.headers: false
+    listener:
+      ack-mode: manual_immediate
+      concurrency: 3
